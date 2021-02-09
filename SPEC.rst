@@ -9,9 +9,12 @@ This dtool-lookup-server plugin adds the ability to get an overview of the
 dataset a user has got access to based on how those datasets have been
 annotated with key/value pairs.
 
-The purpose of this REST API is to give users an overview of all the datasets
+The purpose of this API is to give users an overview of all the datasets
 available to them and to allow them to drill down on those results by filtering
 based upon keys and key/value pairs.
+
+It is envisaged that this API could be used to build a webapp that allows
+users to get an "eagle-eye" view of their data.
 
 
 Routes
