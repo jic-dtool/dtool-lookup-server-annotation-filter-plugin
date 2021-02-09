@@ -19,25 +19,35 @@ Routes
 
 This plugin has four routes.
 
-- GET /annotation_filter_plugin/keys
-- GET /annotation_filter_plugin/annotation_values/<key>
+- POST /annotation_filter_plugin/keys
+- POST /annotation_filter_plugin/annotation_values
 - POST /annotation_filter_plugin/num_datasets
 - POST /annotation_filter_plugin/datasets
 
 The first gives access to all annotations keys that have are present on at
-least one dataset with a basic value.
+least one dataset with a basic value. The keys will only be extracted from
+datasets that pass any annotation filter in the post request. The response from
+this route includes information about the number of datasets associated with
+each key.
 
-The second gives access to all values for a particular key.
+The second gives access to all values for the keys specified in the post
+request.  The values will only be extracted from the datasets that pass the
+annotation filter in the post request. The response form this route includes
+information about the number of datasets associated with each key/value pair.
 
-The third gives the number of datasets given a particular annotation key/value filter.
+The third gives the number of datasets given a particular annotation filter.
 
-The fourth gives the list of datasets given a particular annotation key/value filter.
+The fourth gives the list of datasets given a particular annotation filter.
 
 
 Filter syntax
 -------------
 
 Below are examples of JSON queries that can be posted to the last two routes.
+
+Get all (this only makes sense for the /annotation_filter_plugin/keys route)::
+
+    {}
 
 Get only datasets that have the key "species"::
 
