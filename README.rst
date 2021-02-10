@@ -54,7 +54,7 @@ given that each dataset has to have the annotation key "pattern".
 ::
 
     $ curl -H "$HEADER" -H "Content-Type: application/json"  \
-        -X POST -d '{"annotation_keys": "pattern"}'  \
+        -X POST -d '{"annotation_keys": ["pattern"]}'  \
         http://localhost:5000/annotation_filter_plugin/annotation_keys
 
 The response below shows that no datasets that remain have the key "size" and
@@ -111,3 +111,105 @@ are included.
 ::
 
     {"color": 77, "pattern": 35, "size": 4}
+
+
+Find annotations available for filtering and the number of datasets associated with them
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The pattern for finding annotation key/value pairs and the number of datasets assocated
+with them is similar to that of finding the keys (above).
+
+The command below can be used to find all the values associated with the "color" key and
+the number of datasets that has been annotated with each particular value.
+
+::
+
+    $ curl -H "$HEADER" -H "Content-Type: application/json"  \
+        -X POST -d '{"annotation_keys": ["color"]}'  \
+        http://localhost:5000/annotation_filter_plugin/annotation_values
+
+The response below shows that there are five colors available and that most datasets
+have the color "red".
+
+::
+
+    {
+        "color": {
+            "red": 50,
+            "pink": 30,
+            "blue": 20,
+            "green": 15,
+            "yellow": 5
+        }
+    }
+
+To get data for more keys they need to be included in the filter. The command below
+returns the datasets that have annotations for both "color" and "pattern".
+
+::
+
+    $ curl -H "$HEADER" -H "Content-Type: application/json"  \
+        -X POST -d '{"annotation_keys": ["color", "pattern"]}'  \
+        http://localhost:5000/annotation_filter_plugin/annotation_values
+
+The response contains less colors because some of the datasets annotated with color
+did not have a pattern annotation.
+
+::
+
+    {
+        "color": {
+            "red": 15,
+            "pink": 10,
+            "blue": 10,
+            "green": 10
+        }
+        "pattern": {
+            "stripey": 40,
+            "wavy": 10
+    }
+
+It is possible to make more specific queries. The command below also requires
+that the datasets have the stripey pattern.
+
+::
+
+    $ curl -H "$HEADER" -H "Content-Type: application/json"  \
+        -X POST -d '{"annotation_keys": ["color"], "annotations": {"pattern": "stripey"}}'  \
+        http://localhost:5000/annotation_filter_plugin/annotation_keys
+
+The response below shows that fewer datasets have been used to collect the
+annotation information.
+
+::
+
+    {
+        "color": {
+            "red": 15,
+            "pink": 10,
+            "blue": 10,
+            "green": 5
+        }
+        "pattern": {
+            "stripey": 40,
+    }
+
+It is also possible to filter using base URIs. The command below limits the
+keys to those from the base URIs "s3://snow-white" and "s3://mr-men"::
+
+    $ curl -H "$HEADER" -H "Content-Type: application/json"  \
+        -X POST -d '{"annotation_keys": ["color"], "base_uris": ["s3://snow-white", "s3://mr-men"]}'  \
+        http://localhost:5000/annotation_filter_plugin/annotation_keys
+
+The response below shows that there are fewer hits than when all base URIs
+are included.
+
+::
+
+    {
+        "color": {
+            "red": 50,
+            "pink": 20,
+            "blue": 7,
+        }
+    }
