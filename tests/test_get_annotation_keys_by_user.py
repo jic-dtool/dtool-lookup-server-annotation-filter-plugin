@@ -1,4 +1,4 @@
-"""Test utils.annotation_keys_by_user utility function."""
+"""Test utils.annotation_key_info_by_user utility function."""
 
 import pytest
 
