@@ -48,7 +48,10 @@ def test_annotaion_values_complex_with_complex_filter_route(tmp_app):  # NOQA
     expected_content = {"color": {"red": 1}, "pattern": {"wavy": 1}}
     assert content == expected_content
 
-    data = {"annotation_keys": ["color"], "annotations": {"pattern": "stripey"}}
+    data = {
+        "annotation_keys": ["color"],
+        "annotations": {"pattern": "stripey"}
+    }
     r = tmp_app.post(
         "/annotation_filter_plugin/annotation_values",
         headers=headers,
