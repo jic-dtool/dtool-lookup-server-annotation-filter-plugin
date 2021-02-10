@@ -37,7 +37,7 @@ The command below finds all annotations keys available for further filtering::
 
     $ curl -H "$HEADER" -H "Content-Type: application/json"  \
         -X POST -d '{}'  \
-        http://localhost:5000/annotation_filter_plugin/keys
+        http://localhost:5000/annotation_filter_plugin/annotation_keys
 
 The response below means that the annotation key "color" has 120 datasets
 associated with it and the annotation key "pattern" has 50 datasets associated
@@ -55,7 +55,7 @@ given that each dataset has to have the annotation key "pattern".
 
     $ curl -H "$HEADER" -H "Content-Type: application/json"  \
         -X POST -d '{"annotation_keys": "pattern"}'  \
-        http://localhost:5000/annotation_filter_plugin/keys
+        http://localhost:5000/annotation_filter_plugin/annotation_keys
 
 The response below shows that no datasets that remain have the key "size" and
 45 of the datasets with the key "pattern" also have the key "color".
@@ -72,7 +72,7 @@ the command below.
 
     $ curl -H "$HEADER" -H "Content-Type: application/json"  \
         -X POST -d '{"annotations": {"pattern": "stripey"}}'  \
-        http://localhost:5000/annotation_filter_plugin/keys
+        http://localhost:5000/annotation_filter_plugin/annotation_keys
 
 The response below shows that this is more specific and that there are fewer
 results.
@@ -88,7 +88,7 @@ that the datasets have the key "color".
 
     $ curl -H "$HEADER" -H "Content-Type: application/json"  \
         -X POST -d '{"annotation_keys": ["color"], "annotations": {"pattern": "stripey"}}'  \
-        http://localhost:5000/annotation_filter_plugin/keys
+        http://localhost:5000/annotation_filter_plugin/annotation_keys
 
 In the response below there are now fewer datasets with the "pattern" key. That
 is because some of the datasets that were picked up previously did not have the
@@ -103,7 +103,7 @@ keys to those from the base URIs "s3://snow-white" and "s3://mr-men"::
 
     $ curl -H "$HEADER" -H "Content-Type: application/json"  \
         -X POST -d '{"base_uris": ["s3://snow-white", "s3://mr-men"]}'  \
-        http://localhost:5000/annotation_filter_plugin/keys
+        http://localhost:5000/annotation_filter_plugin/annotation_keys
 
 The response below shows that there are fewer hits than when all base URIs
 are included.

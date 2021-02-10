@@ -22,7 +22,7 @@ Routes
 
 This plugin has four routes.
 
-- POST /annotation_filter_plugin/keys
+- POST /annotation_filter_plugin/annotation_keys
 - POST /annotation_filter_plugin/annotation_values
 - POST /annotation_filter_plugin/num_datasets
 - POST /annotation_filter_plugin/datasets

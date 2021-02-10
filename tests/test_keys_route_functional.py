@@ -8,7 +8,7 @@ def test_keys_route_all(tmp_app):  # NOQA
     headers = dict(Authorization="Bearer " + GRUMPY_TOKEN)
     data = {}
     r = tmp_app.post(
-        "/annotation_filter_plugin/keys",
+        "/annotation_filter_plugin/annotation_keys",
         headers=headers,
         data=json.dumps(data),
         content_type="application/json"
@@ -23,7 +23,7 @@ def test_keys_route_with_key_filter(tmp_app):  # NOQA
     headers = dict(Authorization="Bearer " + GRUMPY_TOKEN)
     data = {"annotation_keys": ["color"]}
     r = tmp_app.post(
-        "/annotation_filter_plugin/keys",
+        "/annotation_filter_plugin/annotation_keys",
         headers=headers,
         data=json.dumps(data),
         content_type="application/json"
@@ -38,7 +38,7 @@ def test_keys_route_with_annotation_filter(tmp_app):  # NOQA
     headers = dict(Authorization="Bearer " + GRUMPY_TOKEN)
     data = {"annotations": {"pattern": "stripey"}}
     r = tmp_app.post(
-        "/annotation_filter_plugin/keys",
+        "/annotation_filter_plugin/annotation_keys",
         headers=headers,
         data=json.dumps(data),
         content_type="application/json"
@@ -57,7 +57,7 @@ def test_keys_route_with_complex_filter(tmp_app):  # NOQA
         "annotations": {"pattern": "stripey"}
     }
     r = tmp_app.post(
-        "/annotation_filter_plugin/keys",
+        "/annotation_filter_plugin/annotation_keys",
         headers=headers,
         data=json.dumps(data),
         content_type="application/json"
@@ -72,7 +72,7 @@ def test_keys_route_with_complex_filter(tmp_app):  # NOQA
         "annotations": {"pattern": "stripey"}
     }
     r = tmp_app.post(
-        "/annotation_filter_plugin/keys",
+        "/annotation_filter_plugin/annotation_keys",
         headers=headers,
         data=json.dumps(data),
         content_type="application/json"
@@ -87,7 +87,7 @@ def test_keys_route_with_sleepy_user(tmp_app):  # NOQA
     headers = dict(Authorization="Bearer " + SLEEPY_TOKEN)
     data = {}
     r = tmp_app.post(
-        "/annotation_filter_plugin/keys",
+        "/annotation_filter_plugin/annotation_keys",
         headers=headers,
         data=json.dumps(data),
         content_type="application/json"
@@ -101,7 +101,7 @@ def test_keys_route_with_noone_user(tmp_app):  # NOQA
     headers = dict(Authorization="Bearer " + NOONE_TOKEN)
     data = {}
     r = tmp_app.post(
-        "/annotation_filter_plugin/keys",
+        "/annotation_filter_plugin/annotation_keys",
         headers=headers,
         data=json.dumps(data),
         content_type="application/json"

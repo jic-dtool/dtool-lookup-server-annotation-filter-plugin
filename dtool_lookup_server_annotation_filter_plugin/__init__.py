@@ -27,9 +27,9 @@ annotation_filter_bp = Blueprint(
 )
 
 
-@annotation_filter_bp.route('/keys', methods=["POST"])
+@annotation_filter_bp.route('/annotation_keys', methods=["POST"])
 @jwt_required
-def keys():
+def annotation_keys():
     username = get_jwt_identity()
     query = request.get_json()
     try:
