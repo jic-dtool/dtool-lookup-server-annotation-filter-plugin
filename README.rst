@@ -2,8 +2,27 @@ dtool-lookup-server-annotation-filter-plugin
 ============================================
 
 
+Introduction
+------------
+
+This `dtool-lookup-server <https://github.com/jic-dtool/dtool-lookup-server>`_
+plugin adds the ability to get an overview of the dataset a user has got access
+to based on how those datasets have been annotated with key/value pairs.
+
+The purpose of this API is to give users an overview of all the datasets
+available to them and to allow them to drill down on those results by filtering
+based upon keys and key/value pairs.
+
+This API could be used to build a webapp that allows users to get an
+"eagle-eye" view of their data.
+
+
 Installation
 ------------
+
+This plugin depends on having installed and configured a  `dtool-lookup-server
+<https://github.com/jic-dtool/dtool-lookup-server>`_. This plugin can then
+be installed by running the commands below.
 
 ::
 
@@ -11,19 +30,102 @@ Installation
     cd dtool-lookup-server-annotation-filter-plugin
     python setup.py install
 
+See `dtool-lookup-server <https://github.com/jic-dtool/dtool-lookup-server>`_
+for more information about the setup of the base system.
+
+
+Routes
+------
+
+This plugin has four routes.
+
+- POST /annotation_filter_plugin/annotation_keys
+- POST /annotation_filter_plugin/annotation_values
+- POST /annotation_filter_plugin/num_datasets
+- POST /annotation_filter_plugin/datasets
+
+The first gives access to all annotations keys that have are present on at
+least one dataset with a basic value. The keys will only be extracted from
+datasets that pass any annotation filter in the post request. The response from
+this route includes information about the number of datasets associated with
+each key.
+
+The second gives access to all values for the keys specified in the post
+request.  The values will only be extracted from the datasets that pass the
+annotation filter in the post request. The response form this route includes
+information about the number of datasets associated with each key/value pair.
+
+The third gives the number of datasets given a particular annotation filter.
+
+The fourth gives the list of datasets given a particular annotation filter.
+
+
+Filter syntax
+-------------
+
+Below are examples of JSON queries that can be posted to the  routes.
+
+No filters, i.e. get all (this only really makes sense for the
+/annotation_filter_plugin/annotation_keys route).
+
+::
+
+    {}
+
+Get only datasets that have the key "color"::
+
+    {
+        "annotation_keys": ["color"]
+    }
+
+Get only datasets that have the "color" is set to "red"::
+
+    {
+        "annotations": {"color": "red"}
+    }
+
+Get only datasets that have both the keys "color" and "pattern"::
+
+    {
+        "annotation_keys": ["color", "pattern"]
+    }
+
+Get only datasets that have the "color" is set to "red" and
+"pattern" set to "stripey"::
+
+    {
+        "annotations": {"color": "red", "pattern": "stripey"}
+    }
+
+Get only datasets that have the keys "color" and "pattern" and where the
+"color" is set to "red"::
+
+    {
+        "annotation_keys": ["color", "pattern"],
+        "annotations": {"color": "red"}
+    }
+
+
+
+Limitations
+-----------
+
+- This plugin only recognises annotations where the value is a basic type, such
+  as a string, a number or a boolean value. In other words a dataset's
+  annotations where the value is a  data structures such as lists and
+  dictionaries will be ignored.
+- Datasets that do not have any annotation with a basic type as a value will
+  not be recognised up by this plugin.
+
 
 Usage
 -----
 
-See `dtool-lookup-server <https://github.com/jic-dtool/dtool-lookup-server>`_ for more
-information about the setup of the base system.
-
-
 Preparation
 ~~~~~~~~~~~
 
-The dtool lookup server makes use of the Authrized header to pass through the
-JSON web token for authrization. Below we create environment variables for the
+The dtool lookup server makes use of the Authorization header to pass through the
+JSON web token for authorization. Below we create environment variables for the
 token and the header used in the ``curl`` commands::
 
     $ TOKEN=$(flask user token olssont)
