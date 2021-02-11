@@ -37,25 +37,34 @@ def _extract_valid_keys(ds_info):
     return ds_valid_keys
 
 
+def _extract_keys_of_interest(filters):
+    keys_of_interest = set()
+    if "annotation_keys" in filters:
+        keys_of_interest.update(filters["annotation_keys"])
+    if "annotations" in filters:
+        keys_of_interest.update(filters["annotations"].keys())
+    return keys_of_interest
+
+
 def _exclude_dataset_info_filter(ds_info, filters):
     "There is probably a more clever way to do this using the mongo query language."  # NOQA
 
     # Create set of valid keys in dataset.
     ds_valid_keys = _extract_valid_keys(ds_info)
 
-    # If the "annotation_key" filter is on check that key is part of it.
-    if "annotation_keys" in filters:
-        annotation_keys_set = set(filters["annotation_keys"])
-        if len(annotation_keys_set.intersection(ds_valid_keys)) == 0:
-            return True
+    # All keys of interest must be present on the dataset for it to be
+    # recognised.
+    keys_of_interest = _extract_keys_of_interest(filters)
+    ds_valid_keys = _extract_valid_keys(ds_info)
+
+    if len(keys_of_interest.difference(ds_valid_keys)) > 0:
+        return True
 
     # If the "annotations" filter is on check that the key/value pair is
     # present, if not skip the dataset.
     skip = False
     if "annotations" in filters:
-        print("annotations in filter")
         for ann_key, ann_value in filters["annotations"].items():
-            print(f"ann_key {ann_key}, ds_valid_keys {ds_valid_keys}")
             if ann_key not in ds_valid_keys:
                 skip = True
                 break
@@ -102,8 +111,7 @@ def get_annotation_key_info_by_user(username, filters):
             continue
 
         # Add the key information.
-        ds_valid_keys = _extract_valid_keys(ds)
-        for key in ds_valid_keys:
+        for key in _extract_valid_keys(ds):
             annotation_key_info[key] = annotation_key_info.get(key, 0) + 1
 
     return annotation_key_info
@@ -142,23 +150,11 @@ def get_annotation_value_info_by_user(username, filters):
         if _exclude_dataset_info_filter(ds, filters):
             continue
 
-        keys_of_interest = set()
-        if "annotation_keys" in filters:
-            keys_of_interest.update(filters["annotation_keys"])
-        if "annotations" in filters:
-            keys_of_interest.update(filters["annotations"].keys())
-
-        ds_valid_keys = _extract_valid_keys(ds)
-
-        # All keys_of_interest must be present on the dataset for it to be
-        # recognised.
-        if len(keys_of_interest.difference(ds_valid_keys)) > 0:
-            continue
-
-        for key in keys_of_interest.intersection(ds_valid_keys):
+        for key in _extract_keys_of_interest(filters):
             value = ds["annotations"][key]
             value_dict = annotation_value_info.get(key, {})
             value_dict[value] = value_dict.get(value, 0) + 1
             annotation_value_info[key] = value_dict
+
 
     return annotation_value_info
