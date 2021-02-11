@@ -249,3 +249,39 @@ The response shows that there are 10 such datasets.
 ::
 
         10
+
+Retrieving information about datasets selected by a particular filter
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It is possible to get information about the datasets selected by a particular
+filter using the ``/annotation_filter_plugin/datasets`` route. The command
+below uses a filter to select only datasets that have the key/value pair
+"pattern"/"stripey".
+
+::
+
+    $ curl -H "$HEADER" -H "Content-Type: application/json"  \
+        -X POST -d '{"annotations": {"pattern": "stripey"}}'  \
+        http://localhost:5000/annotation_filter_plugin/datasets
+
+Below is a truncated version of the response.
+
+::
+
+    [
+      {
+        "annotations": {
+          "pattern": "stripey
+        },
+        "base_uri": "s3://dtool-demo",
+        "created_at": "1530803916.74",
+        "creator_username": "olssont",
+        "dtoolcore_version": "3.3.0",
+        "frozen_at": "1536749825.85",
+        "name": "hypocotyl3",
+        "type": "dataset",
+        "uri": "s3://dtool-demo/ba92a5fa-d3b4-4f10-bcb9-947f62e652db",
+        "uuid": "ba92a5fa-d3b4-4f10-bcb9-947f62e652db"
+      }
+      ...
+    ]

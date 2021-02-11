@@ -200,3 +200,38 @@ def get_num_datasets_by_user(username, filters):
             continue
 
     return num_datasets
+
+
+def get_datasets_by_user(username, filters):
+    """Return datasets given the filters passed into the function.
+
+    :param username: username
+    :param filters: dictionary with filters
+    :returns: list of dictionaries with information about the datasets
+    """
+    filters = preprocess_query_base_uris(username, filters)
+    mongo_query = filter_dict_to_mongo_query(filters)
+
+    # If there are no base URI the user has not got permissions to view any
+    # datasets.
+    if len(filters["base_uris"]) == 0:
+        return []
+
+    cx = mongo.db[MONGO_COLLECTION].find(
+        mongo_query,
+        {
+            "_id": False,
+            "readme": False,
+            "manifest": False,
+        }
+    )
+
+    # There is probably a more clever way to do this using the
+    # mongo query language.
+    datasets = []
+    for ds in cx:
+        if _exclude_dataset_info_filter(ds, filters):
+            continue
+        datasets.append(ds)
+
+    return datasets
