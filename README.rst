@@ -213,3 +213,39 @@ are included.
             "blue": 7,
         }
     }
+
+
+Listing the number of datasets available for a particular filter
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The number of datasets selected, using a particular filter, can be determined using the
+``/annotation_filter_plugin/num_datasets`` route. The command below selects all datasets
+with at least one basic value (see the section below on limitations for an explanation
+of what a basic value is). 
+
+::
+
+    $ curl -H "$HEADER" -H "Content-Type: application/json"  \
+        -X POST -d '{}'  \
+        http://localhost:5000/annotation_filter_plugin/num_datasets
+
+The response below shows that there are 145 such datasets.
+
+::
+
+        145
+
+The command below uses a filter to select only datasets that have the key/value
+pair "pattern"/"stripey".
+
+::
+
+    $ curl -H "$HEADER" -H "Content-Type: application/json"  \
+        -X POST -d '{"annotations": {"pattern": "stripey"}}'  \
+        http://localhost:5000/annotation_filter_plugin/num_datasets
+
+The response shows that there are 10 such datasets.
+
+::
+
+        10
