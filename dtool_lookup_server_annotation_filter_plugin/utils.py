@@ -52,11 +52,14 @@ def _exclude_dataset_info_filter(ds_info, filters):
     # Create set of valid keys in dataset.
     ds_valid_keys = _extract_valid_keys(ds_info)
 
+    # Dataset without a valid key are ignored.
+    if len(ds_valid_keys) == 0:
+        return True
+
     # All keys of interest must be present on the dataset for it to be
     # recognised.
     keys_of_interest = _extract_keys_of_interest(filters)
     ds_valid_keys = _extract_valid_keys(ds_info)
-
     if len(keys_of_interest.difference(ds_valid_keys)) > 0:
         return True
 
@@ -156,5 +159,44 @@ def get_annotation_value_info_by_user(username, filters):
             value_dict[value] = value_dict.get(value, 0) + 1
             annotation_value_info[key] = value_dict
 
-
     return annotation_value_info
+
+
+def get_num_datasets_by_user(username, filters):
+    """Return number of datasets given the filters passed into the function.
+
+    :param username: username
+    :param filters: dictionary with filters
+    :returns: number of datasets
+    """
+    filters = preprocess_query_base_uris(username, filters)
+    mongo_query = filter_dict_to_mongo_query(filters)
+
+    # If there are no base URI the user has not got permissions to view any
+    # datasets.
+    if len(filters["base_uris"]) == 0:
+        return 0
+
+    cx = mongo.db[MONGO_COLLECTION].find(
+        mongo_query,
+        {
+            "annotations": True,
+        }
+    )
+
+    # There is probably a more clever way to do this using the
+    # mongo query language.
+    num_datasets = 0
+    for ds in cx:
+        if _exclude_dataset_info_filter(ds, filters):
+            continue
+        num_datasets += 1
+
+        # All keys_of_interest must be present on the dataset for it to be
+        # recognised.
+        keys_of_interest = _extract_keys_of_interest(filters)
+        ds_valid_keys = _extract_valid_keys(ds)
+        if len(keys_of_interest.difference(ds_valid_keys)) > 0:
+            continue
+
+    return num_datasets
