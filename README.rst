@@ -37,12 +37,13 @@ for more information about the setup of the base system.
 Routes
 ------
 
-This plugin has four routes.
+This plugin has five routes.
 
 - POST /annotation_filter_plugin/annotation_keys
 - POST /annotation_filter_plugin/annotation_values
 - POST /annotation_filter_plugin/num_datasets
 - POST /annotation_filter_plugin/datasets
+- GET /annotation_filter_plugin/version
 
 The first gives access to all annotations keys that have are present on at
 least one dataset with a basic value. The keys will only be extracted from
@@ -58,6 +59,8 @@ information about the number of datasets associated with each key/value pair.
 The third gives the number of datasets given a particular annotation filter.
 
 The fourth gives the list of datasets given a particular annotation filter.
+
+The fifth returns the version of the plugin.
 
 
 Filter syntax
