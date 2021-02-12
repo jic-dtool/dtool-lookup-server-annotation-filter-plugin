@@ -1,6 +1,22 @@
 dtool-lookup-server-annotation-filter-plugin
 ============================================
 
+.. image:: https://badge.fury.io/py/dtool-lookup-server-annotation-filter-plugin.svg
+   :target: http://badge.fury.io/py/dtool-lookup-server-annotation-filter-plugin
+   :alt: PyPi package
+
+.. image:: https://travis-ci.org/jic-dtool/dtool-lookup-server-annotation-filter-plugin.svg?branch=master
+   :target: https://travis-ci.org/jic-dtool/dtool-lookup-server-annotation-filter-plugin
+   :alt: Travis CI build status (Linux)
+
+.. image:: https://codecov.io/github/jic-dtool/dtool-lookup-server-annotation-filter-plugin/coverage.svg?branch=master
+   :target: https://codecov.io/github/jic-dtool/dtool-lookup-server-annotation-filter-plugin?branch=master
+   :alt: Code Coverage
+
+- GitHub: https://github.com/jic-dtool/dtool-lookup-server-annotation-filter-plugin
+- PyPI: https://pypi.python.org/pypi/dtool-lookup-server-annotation-filter-plugin
+- Free software: MIT License
+
 
 Introduction
 ------------
