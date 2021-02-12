@@ -1,13 +1,14 @@
 from setuptools import setup
 
 url = "https://github.com/jic-dtool/dtool-lookup-server-annotation-filter-plugin"  # NOQA
-version = "0.1.0"
+version = "0.1.1"
 readme = open('README.rst').read()
 
 setup(
     name="dtool-lookup-server-annotation-filter-plugin",
-    description="Extend dtool-lookup-server with ability to filter by annotations",  # NOQA
     packages=["dtool_lookup_server_annotation_filter_plugin"],
+    description="Extend dtool-lookup-server with ability to filter by annotations",  # NOQA
+    long_description=readme,
     install_requires=[
         "flask",
         "dtool-lookup-server>=0.15.0",
