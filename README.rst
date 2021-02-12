@@ -40,6 +40,8 @@ This plugin depends on having installed and configured a  `dtool-lookup-server
 <https://github.com/jic-dtool/dtool-lookup-server>`_. This plugin can then
 be installed by running the commands below.
 
+This plugin only works in Python3 (i.e. not with Python2).
+
 ::
 
     git clone https://github.com/jic-dtool/dtool-lookup-server-annotation-filter-plugin.git
