@@ -11,6 +11,8 @@ This change log uses principles from `keep a changelog <http://keepachangelog.co
 Added
 ^^^^^
 
+- Made the package python 2 compatible
+
 
 Changed
 ^^^^^^^

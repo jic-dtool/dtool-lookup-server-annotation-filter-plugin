@@ -13,7 +13,13 @@ from dtool_lookup_server.utils import (
 VALID_MONGO_QUERY_KEYS = (
     "base_uris",
 )
-ALLOWED_TYPES = (str, int, float, bool)
+
+try:
+    # Python 2.
+    ALLOWED_TYPES = (str, int, float, bool, unicode)
+except NameError:
+    # Python 3.
+    ALLOWED_TYPES = (str, int, float, bool)
 
 
 def filter_dict_to_mongo_query(filters):

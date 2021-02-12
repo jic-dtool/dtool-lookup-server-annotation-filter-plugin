@@ -1,5 +1,4 @@
 import os
-import pathlib
 import random
 import string
 import uuid
@@ -26,13 +25,10 @@ def random_string(
 
 
 def randome_sqlite_uri(tmp_dir):
+    # Only works on linux.
     fname = random_string() + ".sqlite"
-    sqlite_fpath = pathlib.Path(os.path.join(tmp_dir, fname))
-    raw_uri = sqlite_fpath.absolute().as_uri()
+    sqlite_uri = "sqlite:///" + os.path.join(tmp_dir, fname)
 
-    sqlite_uri = "sqlite:/" + raw_uri[5:]
-    if os.name == "nt":
-        sqlite_uri = "sqlite" + raw_uri[4:]
     return sqlite_uri
 
 
