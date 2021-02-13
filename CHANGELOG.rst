@@ -29,9 +29,13 @@ Removed
 Fixed
 ^^^^^
 
+- Fixed defect where legacy datasets without annotations caused a KeyError to be raised;
+  https://github.com/jic-dtool/dtool-lookup-server-annotation-filter-plugin/issues/1
+
 
 Security
 ^^^^^^^^
+
 
 [0.1.1] - 2021-02-12
 --------------------

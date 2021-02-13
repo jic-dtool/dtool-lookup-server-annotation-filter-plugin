@@ -36,6 +36,11 @@ def filter_dict_to_mongo_query(filters):
 
 def _extract_valid_keys(ds_info):
     ds_valid_keys = set()
+
+    # Some old datasets may not have any annotations.
+    if "annotations" not in ds_info:
+        return ds_valid_keys
+
     for key, value in ds_info["annotations"].items():
         if type(value) not in ALLOWED_TYPES:
             continue
