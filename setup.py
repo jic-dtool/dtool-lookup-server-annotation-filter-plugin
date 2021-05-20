@@ -10,8 +10,7 @@ setup(
     description="Extend dtool-lookup-server with ability to filter by annotations",  # NOQA
     long_description=readme,
     install_requires=[
-        "flask",
-        "dtool-lookup-server>=0.15.0",
+        "dtool-lookup-server>=0.17.2",
         "dtoolcore>=3.17.0",
     ],
     include_package_data=True,
