@@ -35,7 +35,7 @@ annotation_filter_bp = Blueprint(
 
 
 @annotation_filter_bp.route('/version', methods=["GET"])
-@jwt_required
+@jwt_required()
 def version():
 
     # Authorize the user's request.
@@ -49,7 +49,7 @@ def version():
 
 
 @annotation_filter_bp.route('/annotation_keys', methods=["POST"])
-@jwt_required
+@jwt_required()
 def annotation_keys():
     username = get_jwt_identity()
     query = request.get_json()
@@ -61,7 +61,7 @@ def annotation_keys():
 
 
 @annotation_filter_bp.route('/annotation_values', methods=["POST"])
-@jwt_required
+@jwt_required()
 def annotation_values():
     username = get_jwt_identity()
     query = request.get_json()
@@ -73,7 +73,7 @@ def annotation_values():
 
 
 @annotation_filter_bp.route('/num_datasets', methods=["POST"])
-@jwt_required
+@jwt_required()
 def num_datasets():
     username = get_jwt_identity()
     query = request.get_json()
@@ -85,7 +85,7 @@ def num_datasets():
 
 
 @annotation_filter_bp.route('/datasets', methods=["POST"])
-@jwt_required
+@jwt_required()
 def datasets():
     username = get_jwt_identity()
     query = request.get_json()
