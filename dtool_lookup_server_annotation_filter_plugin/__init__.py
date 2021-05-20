@@ -24,7 +24,7 @@ from dtool_lookup_server_annotation_filter_plugin.utils import (
 )
 
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 
 annotation_filter_bp = Blueprint(
