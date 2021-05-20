@@ -32,6 +32,15 @@ Security
 ^^^^^^^^
 
 
+[0.2.1] - 2022-05-20
+--------------------
+
+Fixed
+^^^^^
+
+- Make code compatible with version 4 of the jwt-extended API
+
+
 [0.2.0] - 2021-02-13
 --------------------
 
