@@ -21,7 +21,7 @@ dtool-lookup-server-annotation-filter-plugin
 Introduction
 ------------
 
-This `dtool-lookup-server <https://github.com/jic-dtool/dtool-lookup-server>`_
+This `dtool-lookup-server <https://github.com/jic-dtool/dservercore>`_
 plugin adds the ability to get an overview of the dataset a user has got access
 to based on how those datasets have been annotated with key/value pairs.
 
@@ -37,7 +37,7 @@ Installation
 ------------
 
 This plugin depends on having installed and configured a  `dtool-lookup-server
-<https://github.com/jic-dtool/dtool-lookup-server>`_. This plugin can then
+<https://github.com/jic-dtool/dservercore>`_. This plugin can then
 be installed by running the commands below.
 
 ::
@@ -46,7 +46,7 @@ be installed by running the commands below.
     cd dtool-lookup-server-annotation-filter-plugin
     python setup.py install
 
-See `dtool-lookup-server <https://github.com/jic-dtool/dtool-lookup-server>`_
+See `dtool-lookup-server <https://github.com/jic-dtool/dservercore>`_
 for more information about the setup of the base system.
 
 
